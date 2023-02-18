@@ -1,0 +1,26 @@
+syntax = "proto3";
+
+option go_package = "./proto";
+
+service PostbackStream {
+  rpc Subscribe(ConsumerData) returns (stream Postback);
+  rpc AckPostback(stream AckData) returns (stream Empty);
+}
+
+message ConsumerData {
+  string StreamKey = 1;
+  string GroupName = 2;
+  string ConsumerID = 3;
+}
+
+message AckData {
+  string MessageID = 1;
+}
+
+message Postback {
+  string Method = 1;
+  string Url = 2;
+  string AckID = 3;
+}
+
+message Empty {}
