@@ -6,11 +6,11 @@ COPY . .
 
 RUN go mod download
 
-RUN CGO_ENABLED=0 go build -o /platform .
+RUN CGO_ENABLED=0 go build -o /wrapper .
 
 ## Deploy
 FROM scratch
 
-COPY --from=build /platform /platform
+COPY --from=build /wrapper /wrapper
 
-ENTRYPOINT ["/platform"]
+ENTRYPOINT ["/wrapper"]
